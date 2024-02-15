@@ -1,2 +1,7 @@
+# Artifacts
 /gh-project-iteration
 /gh-project-iteration.exe
+
+# Editors
+.idea
+.vscode
