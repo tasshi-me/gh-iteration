@@ -13,7 +13,7 @@ endif
 DOCS_DIR:=docs
 
 .PHONY: all build lint fix test docs-gen docs-lint docs-update help
-all: lint test build docs-gen docs-lint
+all: lint test build docs-gen docs-lint ## Run all tasks
 
 build: $(BIN)$(BIN_EXT)  ## Build executable file
 	@:
@@ -33,14 +33,14 @@ test: ## Run tests
 docs-gen: ## Generate documentation files
 	@go run ./cmd/gen-docs --out-dir $(DOCS_DIR)
 
-docs-lint: docs-gen ## Check if the docs outdated
+docs-lint: docs-gen ## Check if the docs are outdated
 	@if test -n "$(shell git status $(DOCS_DIR) -s)"; then \
 		echo "$(DOCS_DIR) is outdated"; \
 		git status $(DOCS_DIR) -s; \
 		exit 1; \
 	fi
 
-docs-update: docs-gen ## Update and commit document
+docs-update: docs-gen ## Update and commit document files
 	git add docs
 	git commit -m "docs: update document"
 
