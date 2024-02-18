@@ -31,7 +31,7 @@ test: ## Run tests
 	@go test $(option) ./...
 
 docs-gen: ## Generate documentation files
-	@go run ./cmd/gen-docs
+	@go run ./cmd/gen-docs --out-dir $(DOCS_DIR)
 
 docs-lint: docs-gen ## Check if the docs outdated
 	@if test -n "$(shell git status $(DOCS_DIR) -s)"; then \
