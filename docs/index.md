@@ -16,5 +16,3 @@
 
 - [Repository on GitHub](https://github.com/mshrtsr/gh-iteration)
 
-###### Generated on 19-Feb-2024
-

@@ -131,7 +131,9 @@ func genIndexMarkdownCustom(cmd *cobra.Command, info AdditionalInformation, writ
 	}
 
 	// Footer
-	buf.WriteString(fmt.Sprintf("###### Generated on %s\n\n", time.Now().Format("2-Jan-2006")))
+	if !cmd.DisableAutoGenTag {
+		buf.WriteString(fmt.Sprintf("###### Generated on %s\n\n", time.Now().Format("2-Jan-2006")))
+	}
 
 	log.Debug(buf.String())
 	_, err := buf.WriteTo(writer)

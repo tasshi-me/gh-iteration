@@ -45,6 +45,7 @@ To add the 'project' scope, run 'gh auth refresh -s project'.
 		},
 	}
 
+	rootCmd.DisableAutoGenTag = true
 	rootCmd.Flags().SortFlags = false
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true}) //nolint:exhaustruct
 	rootCmd.PersistentFlags().BoolVarP(&opts.Verbose, "verbose", "v", false, "Output verbose logs")
