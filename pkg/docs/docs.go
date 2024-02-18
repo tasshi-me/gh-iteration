@@ -82,11 +82,11 @@ func genIndexMarkdownCustom(cmd *cobra.Command, info AdditionalInformation, writ
 	// Index
 	buf.WriteString("### Index\n\n")
 	if len(info.Installation) > 0 {
-		buf.WriteString("- [Installation](#installation) \n")
+		buf.WriteString("- [Installation](#installation)\n")
 	}
 	buf.WriteString("- [Commands](#commands) \n")
 	if len(info.Examples) > 0 {
-		buf.WriteString("- [Examples](#examples) \n")
+		buf.WriteString("- [Examples](#examples)\n")
 	}
 	if len(info.Links) > 0 {
 		buf.WriteString("- [Links](#links) \n")
@@ -102,13 +102,15 @@ func genIndexMarkdownCustom(cmd *cobra.Command, info AdditionalInformation, writ
 
 	// Commands
 	buf.WriteString("### Commands\n\n")
+	buf.WriteString("|Command|Description|\n")
+	buf.WriteString("|-|-|\n")
 	for _, subCmd := range cmd.Commands() {
 		if !subCmd.IsAvailableCommand() || subCmd.IsAdditionalHelpTopicCommand() {
 			continue
 		}
 		cName := subCmd.CommandPath()
 		link := strings.ReplaceAll(cName, " ", "_") + ".md"
-		buf.WriteString(fmt.Sprintf("- [%s](%s) %s\n", cName, link, subCmd.Short))
+		buf.WriteString(fmt.Sprintf("|[%s](%s)|%s|\n", cName, link, subCmd.Short))
 	}
 	buf.WriteString("\n")
 
