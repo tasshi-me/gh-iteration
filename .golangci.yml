@@ -142,6 +142,8 @@ linters:
 linters-settings:
   lll:
     line-length: 140
+  goconst:
+    ignore-strings: "```"
 
 #  # Enable only fast linters from enabled linters set (first run won't be fast)
 #  # Default: false

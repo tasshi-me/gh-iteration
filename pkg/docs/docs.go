@@ -79,12 +79,16 @@ func genIndexMarkdownCustom(cmd *cobra.Command, info AdditionalInformation, writ
 	name := cmd.CommandPath()
 	buf.WriteString(fmt.Sprintf("## %s\n\n", name))
 
+	if len(info.Description) > 0 {
+		buf.WriteString(info.Description + "\n\n")
+	}
+
 	// Index
 	buf.WriteString("### Index\n\n")
+	buf.WriteString("- [Commands](#commands) \n")
 	if len(info.Installation) > 0 {
 		buf.WriteString("- [Installation](#installation)\n")
 	}
-	buf.WriteString("- [Commands](#commands) \n")
 	if len(info.Examples) > 0 {
 		buf.WriteString("- [Examples](#examples)\n")
 	}
@@ -92,13 +96,6 @@ func genIndexMarkdownCustom(cmd *cobra.Command, info AdditionalInformation, writ
 		buf.WriteString("- [Links](#links) \n")
 	}
 	buf.WriteString("\n")
-
-	// Installation
-	if len(info.Installation) > 0 {
-		buf.WriteString("### Installation\n\n")
-		buf.WriteString(info.Installation)
-		buf.WriteString("\n")
-	}
 
 	// Commands
 	buf.WriteString("### Commands\n\n")
@@ -113,6 +110,13 @@ func genIndexMarkdownCustom(cmd *cobra.Command, info AdditionalInformation, writ
 		buf.WriteString(fmt.Sprintf("|[%s](%s)|%s|\n", cName, link, subCmd.Short))
 	}
 	buf.WriteString("\n")
+
+	// Installation
+	if len(info.Installation) > 0 {
+		buf.WriteString("### Installation\n\n")
+		buf.WriteString(info.Installation)
+		buf.WriteString("\n")
+	}
 
 	// Examples
 	if len(info.Examples) > 0 {
