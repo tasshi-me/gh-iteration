@@ -52,7 +52,7 @@ func GenMarkdownTree(cmd *cobra.Command, info AdditionalInformation, dir string)
 }
 
 func genIndexMarkdown(cmd *cobra.Command, info AdditionalInformation, dir string) error {
-	filename := filepath.Join(dir, "index.md")
+	filename := filepath.Join(dir, "README.md")
 
 	file, err := os.Create(filename)
 	if err != nil {
