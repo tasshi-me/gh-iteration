@@ -1,6 +1,7 @@
 # Artifacts
 /gh-iteration
 /gh-iteration.exe
+/dist
 
 # Editors
 .idea
