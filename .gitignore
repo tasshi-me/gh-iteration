@@ -2,6 +2,7 @@
 /gh-iteration
 /gh-iteration.exe
 /dist
+/_site
 
 # Editors
 .idea

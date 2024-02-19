@@ -25,25 +25,37 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: 'stable'
-      - run: go version
       - uses: golangci/golangci-lint-action@3cfe3a4abbb849e10058ce4af15d205b6da42804 # v4
         with:
           version: latest
 
-  lint-docs:
+  docs-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
           go-version: 'stable'
-      - run: go version
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - run: bundle install
+#      - run: make docs-doctor
+      - run: make docs-build
+
+  docs-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
       - run: make docs-lint
 
   actions-timeline:
     permissions:
       actions: read
-    needs: [test, lint, lint-docs]
+    needs: [test, lint, docs-build, docs-lint]
     runs-on: ubuntu-latest
     if: ${{ !cancelled() }}
     steps:

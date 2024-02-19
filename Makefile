@@ -14,7 +14,7 @@ DIST_DIR:=dist
 
 DOCS_DIR:=docs
 
-.PHONY: all build build-all upload lint fix test docs-gen docs-lint docs-update help
+.PHONY: all build build-all upload lint fix test docs-gen docs-lint docs-build docs-doctor docs-preview docs-update help
 all: lint test build build-all docs-gen docs-lint ## Run all tasks
 
 build: $(BIN)$(BIN_EXT)  ## Build executable file
@@ -52,9 +52,18 @@ docs-lint: docs-gen ## Check if the docs are outdated
 		exit 1; \
 	fi
 
+docs-build: docs-gen ## Generate documentation site from .md files
+	@bundle exec jekyll build -s $(DOCS_DIR) -d _site
+
+docs-doctor: docs-gen ## Lint documentation site
+	@bundle exec jekyll doctor -s $(DOCS_DIR)
+
+docs-preview: docs-gen ## Preview documentation site in local
+	@bundle exec jekyll serve -s $(DOCS_DIR) -d _site --open-url
+
 docs-update: docs-gen ## Update and commit document files
-	git add docs
-	git commit -m "docs: update document"
+	@git add docs
+	@git commit -m "docs: update document"
 
 # https://postd.cc/auto-documented-makefile/
 help: ## Display this help
