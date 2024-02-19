@@ -27,7 +27,7 @@ type Link struct {
 	URL   string
 }
 
-var ErrDirEmptyString = errors.New("dir must not be empty")
+var ErrDirEmptyString = errors.New("destination directory must not be empty string")
 
 func GenMarkdownTree(cmd *cobra.Command, info AdditionalInformation, dir string) error {
 	if len(dir) == 0 {
