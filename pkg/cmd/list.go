@@ -6,7 +6,6 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/cli/go-gh/v2/pkg/repository"
 	"github.com/mshrtsr/gh-iteration/pkg/flags"
 	"github.com/mshrtsr/gh-iteration/pkg/github"
 	"github.com/mshrtsr/gh-iteration/pkg/log"
@@ -131,27 +130,16 @@ func retrieveProject(opts *ListOption) (*github.Project, error) {
 		return p, nil
 	}
 	log.Debug("Retrieve project by owner and project number")
-	projectOwner, err := retrieveOwner(opts)
+	projectOwner, err := github.FetchOwnerByLogin(opts.ProjectOwner)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to retrieve owner by owner login: %w", err)
 	}
-	log.Debug("Owner: " + projectOwner)
-	p, err := github.FetchProjectByNumber(opts.ProjectNumber, projectOwner)
+	log.Debug("Owner: " + projectOwner.Login)
+	p, err := github.FetchProjectByNumber(opts.ProjectNumber, projectOwner.ID)
 	if err != nil {
 		return nil, fmt.Errorf("failed to retrieve a project by project number: %w", err)
 	}
 	return p, nil
-}
-
-func retrieveOwner(opts *ListOption) (string, error) {
-	if len(opts.ProjectOwner) > 0 {
-		return opts.ProjectOwner, nil
-	}
-	repo, err := repository.Current()
-	if err != nil {
-		return "", fmt.Errorf("failed to retrieve owner: %w", err)
-	}
-	return repo.Owner, nil
 }
 
 func formatIterationFieldPlain(iterationField *github.ProjectV2IterationField, completed bool) string {

@@ -17,40 +17,29 @@ type Project struct {
 	Title  string `json:"title"`
 }
 
-func FetchProjectByNumber(number int, owner string) (*Project, error) {
-	projectID, stderr, err := gh.Exec(
-		"project", "view", strconv.Itoa(number), "--owner", owner, "--format", "json", "--jq", ".id",
-	)
+func FetchProjectByNumber(number int, ownerID string) (*Project, error) {
+	client, err := api.DefaultGraphQLClient()
 	if err != nil {
-		if len(stderr.String()) > 0 {
-			return nil, fmt.Errorf("%s: %w", stderr.String(), err)
-		}
-		return nil, fmt.Errorf("failed to retrieve a project: %w", err)
+		return nil, fmt.Errorf("failed to init GraphQL client: %w", err)
 	}
 
-	return &Project{ID: projectID.String(), Number: number}, nil //nolint:exhaustruct //TODO: fixme
+	var query struct {
+		Node struct {
+			ProjectV2Owner struct {
+				ProjectV2 Project `graphql:"projectV2(number: $number)"`
+			} `graphql:"... on ProjectV2Owner"`
+		} `graphql:"node(id: $owner_id)"`
+	}
+	variables := map[string]interface{}{
+		"owner_id": graphql.ID(ownerID),
+		"number":   graphql.Int(number),
+	}
 
-	//
-	// client, err := api.DefaultGraphQLClient()
-	// if err != nil {{
-	//	return nil, err
-	//}
-	//
-	// var query struct {
-	//	Organization struct {
-	//		ProjectV2 Project `graphql:"projectV2(number: $number)"`
-	//	} `graphql:"organization(login: $organization)"`
-	//}
-	// variables := map[string]interface{}{
-	//	"organization": graphql.String(owner),
-	//	"number":       graphql.Int(number),
-	//}
-	//
-	// err = client.Query("ProjectId", &query, variables)
-	// if err != nil {
-	//	return nil, err
-	//}
-	// return &query.Organization.ProjectV2, nil
+	err = client.Query("Project", &query, variables)
+	if err != nil {
+		return nil, fmt.Errorf("failed to retrieve a project: %w", err)
+	}
+	return &query.Node.ProjectV2Owner.ProjectV2, nil
 }
 
 func FetchProjectByID(projectID string) (*Project, error) {

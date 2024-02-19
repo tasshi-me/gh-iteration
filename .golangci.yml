@@ -61,7 +61,7 @@ linters:
     - gocyclo
     - godot
     - godox
-    - goerr113
+#    - goerr113 # Not for me
     - gofmt
     - gofumpt
     - goheader
