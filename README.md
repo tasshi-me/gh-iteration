@@ -2,10 +2,12 @@
 
 ## Usage
 
-- gh iteration field list
-- gh iteration field view
+- gh iteration field-list (in development)
+- gh iteration field-view (in development)
 - gh iteration list
-- gh iteration item-edit
+- gh iteration item-edit (in development)
+
+See more details in https://mshrtsr.github.io/gh-iteration/
 
 ### Global options
 
@@ -16,7 +18,7 @@
 --log-format plain|json
 ```
 
-### gh iteration field list
+### gh iteration field-list
 
 List the iteration fields in a project
 
@@ -31,7 +33,7 @@ gh iteration field list
 --project-id
 ```
 
-### gh iteration field view
+### gh iteration field-view
 
 View a iteration field
 
