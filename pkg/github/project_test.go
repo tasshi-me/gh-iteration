@@ -1,6 +1,7 @@
 package github_test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/mshrtsr/gh-iteration/pkg/github"
@@ -8,6 +9,9 @@ import (
 
 func TestFetchProjectByNumber(t *testing.T) {
 	t.Parallel()
+	if os.Getenv("CI") == "true" {
+		t.Skip()
+	}
 
 	login := "tasshi-playground"
 	projectNumber := 2

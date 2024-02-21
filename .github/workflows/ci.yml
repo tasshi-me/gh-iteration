@@ -13,6 +13,8 @@ jobs:
       - run: go version
       - run: make build
       - run: make test
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   lint:
     runs-on: ubuntu-latest

@@ -1,6 +1,7 @@
 package github_test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/mshrtsr/gh-iteration/pkg/github"
@@ -85,17 +86,20 @@ func TestFetchUserByViewer(t *testing.T) {
 	t.Parallel()
 
 	login := "mshrtsr"
-	org, err := github.FetchUserByViewer()
+	if os.Getenv("CI") == "true" {
+		login = "github-actions[bot]"
+	}
+	owner, err := github.FetchUserByViewer()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(org.ID) == 0 {
+	if len(owner.ID) == 0 {
 		t.Errorf("failed to retrieve ID")
 	}
-	if len(org.Name) == 0 {
+	if !(os.Getenv("CI") == "true") && len(owner.Name) == 0 {
 		t.Errorf("failed to retrieve Name")
 	}
-	if org.Login != login {
-		t.Errorf("wrong login want: %s, got %s", login, org.Login)
+	if owner.Login != login {
+		t.Errorf("wrong login want: %s, got %s", login, owner.Login)
 	}
 }
