@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/mshrtsr/gh-iteration/pkg/log"
 	"github.com/spf13/cobra"
+	"github.com/tasshi-me/gh-iteration/pkg/log"
 )
 
 type Node struct {

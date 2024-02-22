@@ -3,10 +3,10 @@ package main
 import (
 	"os"
 
-	"github.com/mshrtsr/gh-iteration/pkg/cmd"
-	"github.com/mshrtsr/gh-iteration/pkg/docs"
-	"github.com/mshrtsr/gh-iteration/pkg/log"
 	"github.com/spf13/cobra"
+	"github.com/tasshi-me/gh-iteration/pkg/cmd"
+	"github.com/tasshi-me/gh-iteration/pkg/docs"
+	"github.com/tasshi-me/gh-iteration/pkg/log"
 )
 
 func main() {
@@ -82,7 +82,7 @@ func run(opts *Options) {
 		"#### 2. Install gh-iteration\n" +
 		"\n" +
 		"```shell\n" +
-		"gh extension install mshrtsr/iteration\n" +
+		"gh extension install tasshi-me/iteration\n" +
 		"````\n" +
 		"#### 3. Refresh token with `project` scope (if required)\n\n" +
 		"To access to GitHub Projects, your token must have `project` scope.\n\n" +
@@ -112,8 +112,8 @@ func run(opts *Options) {
 		"\n"
 
 	links := []docs.Link{
-		{Label: "Repository", URL: "https://github.com/mshrtsr/gh-iteration"},
-		{Label: "Release notes", URL: "https://github.com/mshrtsr/gh-iteration/releases"},
+		{Label: "Repository", URL: "https://github.com/tasshi-me/gh-iteration"},
+		{Label: "Release notes", URL: "https://github.com/tasshi-me/gh-iteration/releases"},
 	}
 
 	info := docs.AdditionalInformation{

@@ -3,7 +3,7 @@ package log_test
 import (
 	"testing"
 
-	"github.com/mshrtsr/gh-iteration/pkg/log"
+	"github.com/tasshi-me/gh-iteration/pkg/log"
 )
 
 func TestPlainFormatter(t *testing.T) {

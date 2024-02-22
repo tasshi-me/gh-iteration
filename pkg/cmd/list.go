@@ -6,10 +6,10 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/mshrtsr/gh-iteration/pkg/flags"
-	"github.com/mshrtsr/gh-iteration/pkg/github"
-	"github.com/mshrtsr/gh-iteration/pkg/log"
 	"github.com/spf13/cobra"
+	"github.com/tasshi-me/gh-iteration/pkg/flags"
+	"github.com/tasshi-me/gh-iteration/pkg/github"
+	"github.com/tasshi-me/gh-iteration/pkg/log"
 )
 
 type ListProps struct {

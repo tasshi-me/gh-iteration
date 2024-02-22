@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/mshrtsr/gh-iteration/pkg/flags"
 	"github.com/spf13/cobra"
+	"github.com/tasshi-me/gh-iteration/pkg/flags"
 )
 
 type Flags struct {

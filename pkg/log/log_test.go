@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mshrtsr/gh-iteration/pkg/log"
+	"github.com/tasshi-me/gh-iteration/pkg/log"
 )
 
 func nowMock() time.Time { return time.Date(1995, 0o7, 10, 0o1, 23, 45, 6789, time.UTC) }

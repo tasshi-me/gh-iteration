@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mshrtsr/gh-iteration/pkg/log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
+	"github.com/tasshi-me/gh-iteration/pkg/log"
 )
 
 type AdditionalInformation struct {

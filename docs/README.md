@@ -26,7 +26,7 @@ See the [document](https://github.com/cli/cli).
 #### 2. Install gh-iteration
 
 ```shell
-gh extension install mshrtsr/iteration
+gh extension install tasshi-me/iteration
 ````
 #### 3. Refresh token with `project` scope (if required)
 
@@ -60,6 +60,6 @@ $ gh iteration item-edit --field-id <FIELD_ID> --item-id <ITEM_ID> --iteration-c
 
 ### Links
 
-- [Repository](https://github.com/mshrtsr/gh-iteration)
-- [Release notes](https://github.com/mshrtsr/gh-iteration/releases)
+- [Repository](https://github.com/tasshi-me/gh-iteration)
+- [Release notes](https://github.com/tasshi-me/gh-iteration/releases)
 
