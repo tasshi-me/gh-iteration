@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/mshrtsr/gh-iteration/pkg/github"
+	"github.com/tasshi-me/gh-iteration/pkg/github"
 )
 
 func TestFetchOwnerIDByLogin(t *testing.T) {
@@ -14,7 +14,7 @@ func TestFetchOwnerIDByLogin(t *testing.T) {
 		login     string
 		ownerType github.OwnerType
 	}{
-		{"mshrtsr", github.OwnerTypeUser},
+		{"tasshi-me", github.OwnerTypeUser},
 		{"tasshi-playground", github.OwnerTypeOrganization},
 	}
 
@@ -66,7 +66,7 @@ func TestFetchOrganizationByLogin(t *testing.T) {
 func TestFetchUserByLogin(t *testing.T) {
 	t.Parallel()
 
-	login := "mshrtsr"
+	login := "tasshi-me"
 	org, err := github.FetchUserByLogin(login)
 	if err != nil {
 		t.Fatal(err)
@@ -85,7 +85,7 @@ func TestFetchUserByLogin(t *testing.T) {
 func TestFetchUserByViewer(t *testing.T) {
 	t.Parallel()
 
-	login := "mshrtsr"
+	login := "tasshi-me"
 	if os.Getenv("CI") == "true" {
 		login = "github-actions[bot]"
 	}

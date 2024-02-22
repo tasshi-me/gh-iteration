@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/mshrtsr/gh-iteration/pkg/github"
+	"github.com/tasshi-me/gh-iteration/pkg/github"
 )
 
 func TestFetchProjectByNumber(t *testing.T) {

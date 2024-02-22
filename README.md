@@ -7,7 +7,7 @@
 - gh iteration list
 - gh iteration item-edit (in development)
 
-See more details in https://mshrtsr.github.io/gh-iteration/
+See more details in https://tasshi-me.github.io/gh-iteration/
 
 ### Global options
 

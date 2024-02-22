@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/mshrtsr/gh-iteration/pkg/cmd"
+	"github.com/tasshi-me/gh-iteration/pkg/cmd"
 )
 
 func main() {

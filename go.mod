@@ -1,4 +1,4 @@
-module github.com/mshrtsr/gh-iteration
+module github.com/tasshi-me/gh-iteration
 
 go 1.22.0
 
