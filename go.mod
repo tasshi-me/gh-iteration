@@ -1,6 +1,6 @@
 module github.com/tasshi-me/gh-iteration
 
-go 1.22.0
+go 1.22.1
 
 require (
 	github.com/cli/go-gh/v2 v2.6.0
