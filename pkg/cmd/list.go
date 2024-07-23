@@ -19,9 +19,7 @@ type ListProps struct {
 type ListOption struct {
 	ProjectOwner  string
 	ProjectNumber int
-	ProjectID     string
 	FieldName     string
-	FieldID       string
 	Completed     bool
 }
 
@@ -36,18 +34,10 @@ func NewListCmd(props *ListProps) *cobra.Command {
 		Args:  cobra.NoArgs,
 		PreRunE: func(cmd *cobra.Command, _ []string) error {
 			validator := flags.NewValidator(
-				flags.Or(
-					flags.Flag("field-id"),
-					flags.And(
-						flags.Flag("field"),
-						flags.Or(
-							flags.Flag("project-id"),
-							flags.And(
-								flags.Flag("project"),
-								flags.Flag("owner"),
-							),
-						),
-					),
+				flags.And(
+					flags.Flag("field"),
+					flags.Flag("project"),
+					flags.Flag("owner"),
 				),
 			)
 			err := validator.Validate(cmd)
@@ -62,16 +52,13 @@ func NewListCmd(props *ListProps) *cobra.Command {
 	}
 
 	listCmd.Flags().SortFlags = false
-	listCmd.Flags().StringVar(&opts.FieldID, "field-id", "", "Iteration field ID")
-	listCmd.Flags().StringVar(&opts.FieldName, "field", "",
-		"Iteration field name\n(--project or --project-id must be set together)")
-
-	listCmd.Flags().StringVar(&opts.ProjectID, "project-id", "", "Project ID")
-	listCmd.Flags().IntVar(&opts.ProjectNumber, "project", 0, "Project name\n(--owner must be set together)")
-
+	listCmd.Flags().StringVar(&opts.FieldName, "field", "", "Iteration field name")
+	listCmd.Flags().IntVar(&opts.ProjectNumber, "project", 0, "Project number")
 	listCmd.Flags().StringVar(&opts.ProjectOwner, "owner", "", "User/Organization login name")
-
 	listCmd.Flags().BoolVar(&opts.Completed, "completed", false, "List completed iterations")
+	_ = listCmd.MarkFlagRequired("field")
+	_ = listCmd.MarkFlagRequired("project")
+	_ = listCmd.MarkFlagRequired("owner")
 
 	return listCmd
 }
@@ -98,48 +85,26 @@ func listRun(props *ListProps, opts *ListOption) {
 }
 
 func retrieveIterationField(opts *ListOption) (*github.ProjectV2IterationField, error) {
-	if len(opts.FieldID) > 0 {
-		log.Debug("Retrieve an iteration field by field ID")
-		i, err := github.FetchIterationFieldByID(opts.FieldID)
-		if err != nil {
-			return nil, fmt.Errorf("failed to retrieve an iteration by field ID: %w", err)
-		}
-		return i, nil
-	}
-
-	log.Debug("Retrieve an iteration field by field name and project")
-	project, err := retrieveProject(opts)
-	if err != nil {
-		return nil, err
-	}
-	log.Debug("Project ID: " + project.ID)
-	i, err := github.FetchIterationFieldByName(project.ID, opts.FieldName)
-	if err != nil {
-		return nil, fmt.Errorf("failed to retrieve an iteration by field name and project: %w", err)
-	}
-	return i, nil
-}
-
-func retrieveProject(opts *ListOption) (*github.Project, error) {
-	if len(opts.ProjectID) > 0 {
-		log.Debug("Retrieve project by project ID")
-		p, err := github.FetchProjectByID(opts.ProjectID)
-		if err != nil {
-			return nil, fmt.Errorf("failed to retrieve a project by project ID: %w", err)
-		}
-		return p, nil
-	}
-	log.Debug("Retrieve project by owner and project number")
+	log.Debug("Retrieve owner by login name")
 	projectOwner, err := github.FetchOwnerByLogin(opts.ProjectOwner)
 	if err != nil {
 		return nil, fmt.Errorf("failed to retrieve owner by owner login: %w", err)
 	}
 	log.Debug("Owner: " + projectOwner.Login)
-	p, err := github.FetchProjectByNumber(opts.ProjectNumber, projectOwner.ID)
+
+	log.Debug("Retrieve project by owner and project number")
+	project, err := github.FetchProjectByNumber(opts.ProjectNumber, projectOwner.ID)
 	if err != nil {
 		return nil, fmt.Errorf("failed to retrieve a project by project number: %w", err)
 	}
-	return p, nil
+	log.Debug("Project ID: " + project.ID)
+
+	log.Debug("Retrieve an iteration field by field name and project")
+	i, err := github.FetchIterationFieldByName(project.ID, opts.FieldName)
+	if err != nil {
+		return nil, fmt.Errorf("failed to retrieve an iteration by field name and project: %w", err)
+	}
+	return i, nil
 }
 
 func formatIterationFieldPlain(iterationField *github.ProjectV2IterationField, completed bool) string {

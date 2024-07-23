@@ -30,7 +30,6 @@ gh iteration field list
 ```
 --owner
 --project
---project-id
 ```
 
 ### gh iteration field-view
@@ -46,7 +45,6 @@ gh iteration field view
 ```
 --owner
 --project
---project-id
 --name
 --id
 ```
@@ -64,12 +62,10 @@ gh iteration list
 ```
 --owner
 --project (number)
---project-id
 --field (name)
---field-id
 --completed
 
---field-id | (--field & (--project-id | (--project & --owner)))
+--field & --project & --owner
 ```
 
 ### gh iteration item-edit
@@ -85,11 +81,8 @@ gh iteration item-edit
 ```
 --owner
 --project (number)
---project-id
 --field (name)
---field-id
 --iteration (title)
---iteration-id
 --iteration-start-date
 --iteration-current
 --clear
