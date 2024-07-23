@@ -2,7 +2,7 @@
 
 ## Usage
 
-- gh iteration field-list (in development)
+- gh iteration field-list
 - gh iteration field-view (in development)
 - gh iteration list
 - gh iteration item-edit (in development)

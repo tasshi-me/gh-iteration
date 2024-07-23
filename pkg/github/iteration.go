@@ -27,6 +27,11 @@ type ProjectV2IterationField struct {
 	} `json:"configuration"`
 }
 
+type ProjectV2IterationFieldWithoutConfiguration struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
 func FetchIterationFieldByName(projectID string, fieldName string) (*ProjectV2IterationField, error) {
 	client, err := api.DefaultGraphQLClient()
 	if err != nil {
@@ -76,6 +81,42 @@ func FetchIterationFieldByID(fieldID string) (*ProjectV2IterationField, error) {
 	}
 
 	return &query.Node.ProjectV2IterationField, nil
+}
+
+func FetchIterationFields(projectID string) (*[]ProjectV2IterationFieldWithoutConfiguration, error) {
+	client, err := api.DefaultGraphQLClient()
+	if err != nil {
+		return nil, fmt.Errorf("failed to init GraphQL client: %w", err)
+	}
+
+	var query struct {
+		Node struct {
+			ProjectV2 struct {
+				Fields struct {
+					Nodes []struct {
+						ProjectV2IterationField ProjectV2IterationFieldWithoutConfiguration `graphql:"... on ProjectV2IterationField"`
+					} `graphql:"nodes"`
+				} `graphql:"fields(first: 100)"`
+			} `graphql:"... on ProjectV2"`
+		} `graphql:"node(id: $project_id)"`
+	}
+	variables := map[string]interface{}{
+		"project_id": graphql.ID(projectID),
+	}
+
+	err = client.Query("IterationFields", &query, variables)
+	if err != nil {
+		return nil, fmt.Errorf("failed to retrieve a iteration fields: %w", err)
+	}
+
+	var fields []ProjectV2IterationFieldWithoutConfiguration
+	for _, field := range query.Node.ProjectV2.Fields.Nodes {
+		if len(field.ProjectV2IterationField.ID) > 0 {
+			fields = append(fields, field.ProjectV2IterationField)
+		}
+	}
+
+	return &fields, nil
 }
 
 func UpdateIterationField(projectID string, fieldID string, itemID string, iterationID string) (string, error) {
