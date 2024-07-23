@@ -71,15 +71,22 @@ func listRun(props *ListProps, opts *ListOption) {
 	}
 	log.Debug("Iteration field ID: " + iterationField.ID)
 
+	var iterations []github.ProjectV2IterationFieldIteration
+	if opts.Completed {
+		iterations = iterationField.Configuration.CompletedIterations
+	} else {
+		iterations = iterationField.Configuration.Iterations
+	}
+
 	if *props.OutputFormatJSON {
-		s, err := formatIterationFieldJSON(iterationField, opts.Completed)
+		s, err := formatIterationsJSON(iterations)
 		if err != nil {
 			log.Error(err)
 			os.Exit(1)
 		}
 		_, _ = fmt.Fprint(os.Stdout, s)
 	} else {
-		s := formatIterationFieldPlain(iterationField, opts.Completed)
+		s := formatIterationsPlain(iterations)
 		_, _ = fmt.Fprint(os.Stdout, s)
 	}
 }
@@ -107,14 +114,7 @@ func retrieveIterationField(opts *ListOption) (*github.ProjectV2IterationField, 
 	return i, nil
 }
 
-func formatIterationFieldPlain(iterationField *github.ProjectV2IterationField, completed bool) string {
-	var iterations []github.ProjectV2IterationFieldIteration
-	if completed {
-		iterations = iterationField.Configuration.CompletedIterations
-	} else {
-		iterations = iterationField.Configuration.Iterations
-	}
-
+func formatIterationsPlain(iterations []github.ProjectV2IterationFieldIteration) string {
 	maxTitleLen := 0
 	for _, iteration := range iterations {
 		if l := len(iteration.Title); l > maxTitleLen {
@@ -142,14 +142,7 @@ type JSONFormattedIteration struct {
 	Duration  int    `json:"duration"`
 }
 
-func formatIterationFieldJSON(iterationField *github.ProjectV2IterationField, completed bool) (string, error) {
-	var iterations []github.ProjectV2IterationFieldIteration
-	if completed {
-		iterations = iterationField.Configuration.CompletedIterations
-	} else {
-		iterations = iterationField.Configuration.Iterations
-	}
-
+func formatIterationsJSON(iterations []github.ProjectV2IterationFieldIteration) (string, error) {
 	iters := make([]JSONFormattedIteration, 0, len(iterations))
 	for _, iteration := range iterations {
 		iter := JSONFormattedIteration{

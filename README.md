@@ -3,7 +3,7 @@
 ## Usage
 
 - gh iteration field-list
-- gh iteration field-view (in development)
+- gh iteration field-view
 - gh iteration list
 - gh iteration item-edit (in development)
 
@@ -23,30 +23,29 @@ See more details in https://tasshi-me.github.io/gh-iteration/
 List the iteration fields in a project
 
 ```shell
-gh iteration field list
+gh iteration field-list
 ```
 #### Options
 
 ```
 --owner
---project
+--project (number)
 ```
 
 ### gh iteration field-view
 
-View a iteration field
+View an iteration field
 
 ```shell
-gh iteration field view
+gh iteration field-view
 ```
 
 #### Options
 
 ```
 --owner
---project
---name
---id
+--project (number)
+--field (name)
 ```
 
 ### gh iteration list

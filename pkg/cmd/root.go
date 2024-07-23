@@ -60,6 +60,9 @@ To add the 'project' scope, run 'gh auth refresh -s project'.
 	rootCmd.AddCommand(NewFieldListCmd(&FieldListProps{
 		OutputFormatJSON: &opts.OutputFormatJSON,
 	}))
+	rootCmd.AddCommand(NewFieldViewCmd(&FieldViewProps{
+		OutputFormatJSON: &opts.OutputFormatJSON,
+	}))
 	rootCmd.AddCommand(NewUpdateCmd())
 
 	return rootCmd
