@@ -23,6 +23,8 @@ To add the 'project' scope, run 'gh auth refresh -s project'.
 
 ### SEE ALSO
 
+* [gh iteration field-list](gh_iteration_field-list.md)	 - List the iteration fields in a project
+* [gh iteration field-view](gh_iteration_field-view.md)	 - View an iteration field
 * [gh iteration list](gh_iteration_list.md)	 - List the iterations for an iteration field
 * [gh iteration update](gh_iteration_update.md)	 - A brief description of your command
 

@@ -1,23 +1,21 @@
-## gh iteration list
+## gh iteration field-list
 
-List the iterations for an iteration field
+List the iteration fields in a project
 
 ### Synopsis
 
-List the iterations for an iteration field
+List the iteration fields in a project
 
 ```
-gh iteration list [flags]
+gh iteration field-list [flags]
 ```
 
 ### Options
 
 ```
-      --field string   Iteration field name
       --project int    Project number
       --owner string   User/Organization login name
-      --completed      List completed iterations
-  -h, --help           help for list
+  -h, --help           help for field-list
 ```
 
 ### Options inherited from parent commands

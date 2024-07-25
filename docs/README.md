@@ -14,6 +14,8 @@ GitHub CLI extension to list/view/edit iterations in GitHub Projects.
 
 |Command|Description|
 |-|-|
+|[gh iteration field-list](gh_iteration_field-list.md)|List the iteration fields in a project|
+|[gh iteration field-view](gh_iteration_field-view.md)|View an iteration field|
 |[gh iteration list](gh_iteration_list.md)|List the iterations for an iteration field|
 |[gh iteration update](gh_iteration_update.md)|A brief description of your command|
 
