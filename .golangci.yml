@@ -41,7 +41,7 @@ linters:
     - errchkjson
     - errname
     - errorlint
-    - execinquery
+#    - execinquery # Deprecated
     - exhaustive
 #    - exhaustivestruct # Deprecated
     - exhaustruct
@@ -67,7 +67,7 @@ linters:
     - goheader
     - goimports
 #    - golint # Deprecated
-    - gomnd
+#    - gomnd # Deprecated
     - gomoddirectives
     - gomodguard
     - goprintffuncname
