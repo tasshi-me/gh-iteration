@@ -30,7 +30,7 @@ See the [document](https://github.com/cli/cli).
 #### 2. Install gh-iteration
 
 ```shell
-gh extension install tasshi-me/iteration
+gh extension install tasshi-me/gh-iteration
 ````
 #### 3. Refresh token with `project` scope (if required)
 

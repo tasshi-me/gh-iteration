@@ -82,7 +82,7 @@ func run(opts *Options) {
 		"#### 2. Install gh-iteration\n" +
 		"\n" +
 		"```shell\n" +
-		"gh extension install tasshi-me/iteration\n" +
+		"gh extension install tasshi-me/gh-iteration\n" +
 		"````\n" +
 		"#### 3. Refresh token with `project` scope (if required)\n\n" +
 		"To access to GitHub Projects, your token must have `project` scope.\n\n" +
