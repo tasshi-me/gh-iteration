@@ -18,7 +18,7 @@ To add the 'project' scope, run 'gh auth refresh -s project'.
       --json       Output result in JSON
       --log-json   Output log in JSON
   -v, --verbose    Output verbose logs
-  -h, --help       help for gh-iteration
+  -h, --help       help for gh iteration
 ```
 
 ### SEE ALSO
