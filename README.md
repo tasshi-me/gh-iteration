@@ -5,7 +5,7 @@
 - gh iteration field-list
 - gh iteration field-view
 - gh iteration list
-- gh iteration item-edit (in development)
+- gh iteration item-edit
 
 See more details in https://tasshi-me.github.io/gh-iteration/
 
@@ -67,6 +67,21 @@ gh iteration list
 --field & --project & --owner
 ```
 
+### gh iteration item-view
+
+View a project item
+
+```shell
+gh iteration item-view
+```
+
+#### Options
+
+```
+--id (item)
+```
+
+
 ### gh iteration item-edit
 
 Edit iteration of a project item
@@ -78,11 +93,9 @@ gh iteration item-edit
 #### Options
 
 ```
---owner
---project (number)
 --field (name)
+--id (item)
 --iteration (title)
---iteration-start-date
---iteration-current
+--current
 --clear
 ```

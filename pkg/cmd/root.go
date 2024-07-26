@@ -63,6 +63,12 @@ To add the 'project' scope, run 'gh auth refresh -s project'.
 	rootCmd.AddCommand(NewFieldViewCmd(&FieldViewProps{
 		OutputFormatJSON: &opts.OutputFormatJSON,
 	}))
+	rootCmd.AddCommand(NewItemViewCmd(&ItemViewProps{
+		OutputFormatJSON: &opts.OutputFormatJSON,
+	}))
+	rootCmd.AddCommand(NewItemEditCmd(&ItemEditProps{
+		OutputFormatJSON: &opts.OutputFormatJSON,
+	}))
 	rootCmd.AddCommand(NewUpdateCmd())
 
 	return rootCmd

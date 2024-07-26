@@ -160,3 +160,41 @@ func UpdateIterationField(projectID string, fieldID string, itemID string, itera
 
 	return mutation.UpdateProjectV2ItemFieldValue.ProjectV2Item.ID, nil
 }
+
+// https://docs.github.com/ja/graphql/reference/mutations#clearprojectv2itemfieldvalue
+func ClearIterationField(projectID string, fieldID string, itemID string) (string, error) {
+	client, err := api.DefaultGraphQLClient()
+	if err != nil {
+		return "", fmt.Errorf("failed to init GraphQL client: %w", err)
+	}
+	type ProjectV2Item struct {
+		ID string `graphql:"id"`
+	}
+
+	var mutation struct {
+		ClearProjectV2ItemFieldValue struct {
+			ClientMutationID string        `graphql:"clientMutationId"`
+			ProjectV2Item    ProjectV2Item `graphql:"projectV2Item"`
+		} `graphql:"clearProjectV2ItemFieldValue(input: $input)"`
+	}
+	// https://docs.github.com/en/graphql/reference/mutations#updateprojectv2itemfieldvalue
+	type ClearProjectV2ItemFieldValueInput struct {
+		FieldID   string `json:"fieldId"`
+		ItemID    string `json:"itemId"`
+		ProjectID string `json:"projectId"`
+	}
+
+	variables := map[string]interface{}{
+		"input": ClearProjectV2ItemFieldValueInput{
+			FieldID:   fieldID,
+			ItemID:    itemID,
+			ProjectID: projectID,
+		},
+	}
+	err = client.Mutate("clearProjectV2ItemFieldValue", &mutation, variables)
+	if err != nil {
+		return "", fmt.Errorf("failed to clear the iteration field: %w", err)
+	}
+
+	return mutation.ClearProjectV2ItemFieldValue.ProjectV2Item.ID, nil
+}
