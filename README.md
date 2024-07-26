@@ -1,102 +1,33 @@
 # gh iteration
 
-## Usage
+## Documentation
 
-- gh iteration field-list
-- gh iteration field-view
-- gh iteration list
-- gh iteration item-edit
-- gh iteration items-edit
+https://tasshi-me.github.io/gh-iteration/
 
-See more details in https://tasshi-me.github.io/gh-iteration/
-
-### Global options
-
-```
---verbose
---format plain|json
---log-level debug|info|warn|error|none
---log-format plain|json
-```
-
-### gh iteration field-list
-
-List the iteration fields in a project
+## Installation
 
 ```shell
-gh iteration field-list
-```
-#### Options
-
-```
---owner
---project (number)
+gh extension install tasshi-me/iteration
+$ gh auth refresh -s project
 ```
 
-### gh iteration field-view
-
-View an iteration field
+## Example
 
 ```shell
-gh iteration field-view
+# Assign current sprint to all in progress tasks
+
+gh iteration items-edit \
+  --owner "myOrg" \
+  --project "123" \
+  --field "Sprint" \
+  --query "(Item.Type == \"ISSUE\") && (
+     (Item.Fields.Status.Name endsWith \"In progress\")
+     || (Item.Fields.Status.Name endsWith \"In review\")
+     || (Item.Fields.Status.Name endsWith \"In testing\")
+     || (Item.Fields.Status.Name endsWith \"In AC Check\"))" \
+  --current
 ```
 
-#### Options
+## License
 
-```
---owner
---project (number)
---field (name)
-```
-
-### gh iteration list
-
-List the iterations for an iteration field
-
-```shell
-gh iteration list
-```
-
-#### Options
-
-```
---owner
---project (number)
---field (name)
---completed
-
---field & --project & --owner
-```
-
-### gh iteration item-view
-
-View a project item
-
-```shell
-gh iteration item-view
-```
-
-#### Options
-
-```
---id (item)
-```
-
-
-### gh iteration item-edit
-
-Edit iteration of a project item
-
-```shell
-gh iteration item-edit
-```
-
-#### Options
-
-```
---field (name)
---id (item)
---iteration (title)
---current
---clear
-```
+- [MIT](./LICENSE)
