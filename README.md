@@ -6,6 +6,7 @@
 - gh iteration field-view
 - gh iteration list
 - gh iteration item-edit
+- gh iteration items-edit
 
 See more details in https://tasshi-me.github.io/gh-iteration/
 

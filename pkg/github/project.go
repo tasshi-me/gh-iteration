@@ -244,13 +244,9 @@ func FetchProjectItems(projectID string) (*[]ProjectItem, error) {
 		"project_id": graphql.ID(projectID),
 	}
 
-	fields := map[string]interface{}{
-		"hoge": 1,
-	}
-	fields["fuga"] = 2
-	err = client.Query("ProjectItem", &query, variables)
+	err = client.Query("ProjectItems", &query, variables)
 	if err != nil {
-		return nil, fmt.Errorf("failed to fetch ProjectV2 by project id: %w", err)
+		return nil, fmt.Errorf("failed to fetch ProjectItems by project id: %w", err)
 	}
 	return &query.Node.ProjectV2.Items.Nodes, nil
 }
