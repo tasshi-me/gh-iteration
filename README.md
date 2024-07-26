@@ -7,7 +7,7 @@ https://tasshi-me.github.io/gh-iteration/
 ## Installation
 
 ```shell
-gh extension install tasshi-me/iteration
+gh extension install tasshi-me/gh-iteration
 $ gh auth refresh -s project
 ```
 
