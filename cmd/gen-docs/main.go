@@ -98,16 +98,14 @@ func run(opts *Options) {
 
 	examples := "" +
 		"```shell\n" +
-		"# Update the iteration of the project item to current iteration.\n" +
-		"$ gh iteration item-edit \\\n" +
+		"# Set current iteration to the project items that match the query condition.\n" +
+		"$ gh iteration items-edit \\\n" +
 		"    --owner <OWNER> \\\n" +
 		"    --project <PROJECT_NUM> \\\n" +
 		"    --field <FIELD_NAME> \\\n" +
-		"    --item-id <ITEM_ID> \\\n" +
+		"    --query \"Items.Fields.Status.Name == \\\"In progress\\\"\" \\\n" +
 		"    --iteration-current\n" +
 		"\n" +
-		"# If you have field ID, you can simplify.\n" +
-		"$ gh iteration item-edit --field-id <FIELD_ID> --item-id <ITEM_ID> --iteration-current\n" +
 		"```\n" +
 		"\n"
 

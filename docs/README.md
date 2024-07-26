@@ -49,16 +49,14 @@ $ gh auth refresh -s project
 ### Examples
 
 ```shell
-# Update the iteration of the project item to current iteration.
-$ gh iteration item-edit \
+# Set current iteration to the project items that match the query condition.
+$ gh iteration items-edit \
     --owner <OWNER> \
     --project <PROJECT_NUM> \
     --field <FIELD_NAME> \
-    --item-id <ITEM_ID> \
+    --query "Items.Fields.Status.Name == \"In progress\"" \
     --iteration-current
 
-# If you have field ID, you can simplify.
-$ gh iteration item-edit --field-id <FIELD_ID> --item-id <ITEM_ID> --iteration-current
 ```
 
 
