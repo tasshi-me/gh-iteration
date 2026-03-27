@@ -5,7 +5,7 @@ go 1.22.6
 require (
 	github.com/cli/go-gh/v2 v2.9.0
 	github.com/cli/shurcooL-graphql v0.0.4
-	github.com/expr-lang/expr v1.16.9
+	github.com/expr-lang/expr v1.17.8
 	github.com/spf13/cobra v1.8.1
 )
 
