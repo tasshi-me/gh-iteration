@@ -1,26 +1,9 @@
-# This file contains all available configuration options
-# with their default values (in comments).
-#
-# This file is not a configuration example,
-# it contains the exhaustive configuration with explanations of the options.
-
-# Options for analysis running.
+version: "2"
 run:
-  # Include test files or not.
-  # Default: true
   tests: true
-
-  # Allow multiple golangci-lint instances running, but serialize them around a lock.
-  # If false, golangci-lint exits with an error if it fails to acquire file lock on start.
-  # Default: false
   allow-serial-runners: true
-
 linters:
-  # Disable all linters.
-  # Default: false
-  disable-all: true
-  # Enable specific linter
-  # https://golangci-lint.run/usage/linters/#enabled-by-default
+  default: none
   enable:
     - asasalint
     - asciicheck
@@ -28,11 +11,8 @@ linters:
     - bodyclose
     - containedctx
     - contextcheck
-#    - copyloopvar # Unknown
     - cyclop
-#    - deadcode # Deprecated
     - decorder
-#    - depguard # TODO: Configure later
     - dogsled
     - dupl
     - dupword
@@ -41,19 +21,15 @@ linters:
     - errchkjson
     - errname
     - errorlint
-#    - execinquery # Deprecated
     - exhaustive
-#    - exhaustivestruct # Deprecated
     - exhaustruct
-    - exportloopref
     - forbidigo
     - forcetypeassert
     - funlen
-    - gci
     - ginkgolinter
     - gocheckcompilerdirectives
     - gochecknoglobals
-    - gochecknoinits # Use builder instead of init()
+    - gochecknoinits
     - gochecksumtype
     - gocognit
     - goconst
@@ -61,34 +37,23 @@ linters:
     - gocyclo
     - godot
     - godox
-#    - goerr113 # Not for me
-    - gofmt
-    - gofumpt
     - goheader
-    - goimports
-#    - golint # Deprecated
-#    - gomnd # Deprecated
     - gomoddirectives
     - gomodguard
     - goprintffuncname
     - gosec
-    - gosimple
     - gosmopolitan
     - govet
     - grouper
-#    - ifshort # Deprecated
     - importas
     - inamedparam
     - ineffassign
     - interfacebloat
-#    - interfacer # Deprecated
-#    - intrange # Unknown
     - ireturn
-    - lll # Not shown on IntelliJ
+    - lll
     - loggercheck
     - maintidx
     - makezero
-#    - maligned # Deprecated
     - mirror
     - misspell
     - musttag
@@ -96,11 +61,9 @@ linters:
     - nestif
     - nilerr
     - nilnil
-#    - nlreturn # Not for me
     - noctx
     - nolintlint
     - nonamedreturns
-#    - nosnakecase # Deprecated
     - nosprintfhostport
     - paralleltest
     - perfsprint
@@ -109,42 +72,53 @@ linters:
     - promlinter
     - protogetter
     - reassign
-    - revive # Not shown on IntelliJ
+    - revive
     - rowserrcheck
-#    - scopelint # Deprecated
     - sloglint
     - spancheck
     - sqlclosecheck
     - staticcheck
-#    - structcheck # Deprecated
-    - stylecheck
     - tagalign
     - tagliatelle
-    - tenv
     - testableexamples
     - testifylint
     - testpackage
     - thelper
     - tparallel
-    - typecheck
     - unconvert
     - unparam
     - unused
     - usestdlibvars
-#    - varcheck # Deprecated
-    - varnamelen # Not shown on IntelliJ
+    - varnamelen
     - wastedassign
     - whitespace
     - wrapcheck
-#    - wsl # Not for me
     - zerologlint
-
-linters-settings:
-  lll:
-    line-length: 140
-  goconst:
-    ignore-strings: "```|true"
-
-#  # Enable only fast linters from enabled linters set (first run won't be fast)
-#  # Default: false
-#  fast: true
+  settings:
+    goconst:
+      ignore-strings: '```|true'
+    lll:
+      line-length: 140
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - gofumpt
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
