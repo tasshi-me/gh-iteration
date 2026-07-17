@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/tasshi-me/gh-iteration/pkg/flags"
@@ -124,10 +125,12 @@ func formatIterationsPlain(iterations []github.ProjectV2IterationFieldIteration)
 
 	str := fmt.Sprintf("%-"+strconv.Itoa(maxTitleLen)+"s  %-10s  %-8s  %-8s\n", "Title", "StartDate", "Duration", "ID")
 	format := "%-" + strconv.Itoa(maxTitleLen) + "s  %-10s  %8d  %-8s\n"
+	var strSb127 strings.Builder
 	for _, iteration := range iterations {
 		iter := fmt.Sprintf(format, iteration.Title, iteration.StartDate, iteration.Duration, iteration.ID)
-		str += iter
+		strSb127.WriteString(iter)
 	}
+	str += strSb127.String()
 	return str
 }
 

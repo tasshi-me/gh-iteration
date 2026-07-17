@@ -77,7 +77,7 @@ func genIndexMarkdownCustom(cmd *cobra.Command, info AdditionalInformation, writ
 	buf := new(bytes.Buffer)
 	// Heading
 	name := cmd.CommandPath()
-	buf.WriteString(fmt.Sprintf("## %s\n\n", name))
+	fmt.Fprintf(buf, "## %s\n\n", name)
 
 	if len(info.Description) > 0 {
 		buf.WriteString(info.Description + "\n\n")
@@ -107,7 +107,7 @@ func genIndexMarkdownCustom(cmd *cobra.Command, info AdditionalInformation, writ
 		}
 		cName := subCmd.CommandPath()
 		link := strings.ReplaceAll(cName, " ", "_") + ".md"
-		buf.WriteString(fmt.Sprintf("|[%s](%s)|%s|\n", cName, link, subCmd.Short))
+		fmt.Fprintf(buf, "|[%s](%s)|%s|\n", cName, link, subCmd.Short)
 	}
 	buf.WriteString("\n")
 
@@ -129,14 +129,14 @@ func genIndexMarkdownCustom(cmd *cobra.Command, info AdditionalInformation, writ
 	if len(info.Links) > 0 {
 		buf.WriteString("### Links\n\n")
 		for _, link := range info.Links {
-			buf.WriteString(fmt.Sprintf("- [%s](%s)\n", link.Label, link.URL))
+			fmt.Fprintf(buf, "- [%s](%s)\n", link.Label, link.URL)
 		}
 		buf.WriteString("\n")
 	}
 
 	// Footer
 	if !cmd.DisableAutoGenTag {
-		buf.WriteString(fmt.Sprintf("###### Generated on %s\n\n", time.Now().Format("2-Jan-2006")))
+		fmt.Fprintf(buf, "###### Generated on %s\n\n", time.Now().Format("2-Jan-2006"))
 	}
 
 	log.Debug(buf.String())

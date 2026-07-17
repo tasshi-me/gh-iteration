@@ -26,9 +26,11 @@ func plainFormatter(event Event) string {
 
 	output := ""
 	sc := bufio.NewScanner(strings.NewReader(message))
+	var outputSb29 strings.Builder
 	for sc.Scan() {
-		output += fmt.Sprintf("[%s] %s: %s\n", timestamp, label, sc.Text())
+		fmt.Fprintf(&outputSb29, "[%s] %s: %s\n", timestamp, label, sc.Text())
 	}
+	output += outputSb29.String()
 
 	return output
 }

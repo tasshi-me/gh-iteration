@@ -2,10 +2,14 @@ package github
 
 import (
 	"fmt"
+	"math"
 
 	"github.com/cli/go-gh/v2/pkg/api"
 	graphql "github.com/cli/shurcooL-graphql"
 )
+
+// gqlVarProjectID is the GraphQL variable name for a project node ID.
+const gqlVarProjectID = "project_id"
 
 // Project
 // https://docs.github.com/en/graphql/reference/objects#projectv2
@@ -16,6 +20,9 @@ type Project struct {
 }
 
 func FetchProjectByNumber(number int, ownerID string) (*Project, error) {
+	if number < math.MinInt32 || number > math.MaxInt32 {
+		return nil, fmt.Errorf("project number is out of range: %d", number)
+	}
 	client, err := api.DefaultGraphQLClient()
 	if err != nil {
 		return nil, fmt.Errorf("failed to init GraphQL client: %w", err)
@@ -52,7 +59,7 @@ func FetchProjectByID(projectID string) (*Project, error) {
 		} `graphql:"node(id: $project_id)"`
 	}
 	variables := map[string]interface{}{
-		"project_id": graphql.ID(projectID),
+		gqlVarProjectID: graphql.ID(projectID),
 	}
 
 	err = client.Query("ProjectId", &query, variables)
@@ -88,7 +95,7 @@ func FetchProjectFields(projectID string) (*[]ProjectV2FieldConfiguration, error
 		} `graphql:"node(id: $project_id)"`
 	}
 	variables := map[string]interface{}{
-		"project_id": graphql.ID(projectID),
+		gqlVarProjectID: graphql.ID(projectID),
 	}
 
 	err = client.Query("ProjectV2FieldConfiguration", &query, variables)
@@ -241,7 +248,7 @@ func FetchProjectItems(projectID string) (*[]ProjectItem, error) {
 		} `graphql:"node(id: $project_id)"`
 	}
 	variables := map[string]interface{}{
-		"project_id": graphql.ID(projectID),
+		gqlVarProjectID: graphql.ID(projectID),
 	}
 
 	err = client.Query("ProjectItems", &query, variables)

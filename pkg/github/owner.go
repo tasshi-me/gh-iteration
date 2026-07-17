@@ -8,6 +8,9 @@ import (
 	graphql "github.com/cli/shurcooL-graphql"
 )
 
+// gqlVarLogin is the GraphQL variable name for an owner login.
+const gqlVarLogin = "login"
+
 type OwnerType int
 
 const (
@@ -46,7 +49,7 @@ func FetchOwnerByLogin(login string) (*Owner, error) {
 		User         User         `graphql:"user(login: $login)"`
 	}
 	variables := map[string]interface{}{
-		"login": graphql.String(login),
+		gqlVarLogin: graphql.String(login),
 	}
 
 	err = client.Query("OrgOrUser", &query, variables)
@@ -91,7 +94,7 @@ func FetchOrganizationByLogin(login string) (*Organization, error) {
 		Organization Organization `graphql:"organization(login: $login)"`
 	}
 	variables := map[string]interface{}{
-		"login": graphql.String(login),
+		gqlVarLogin: graphql.String(login),
 	}
 
 	err = client.Query("Organization", &query, variables)
@@ -120,7 +123,7 @@ func FetchUserByLogin(login string) (*User, error) {
 		User User `graphql:"user(login: $login)"`
 	}
 	variables := map[string]interface{}{
-		"login": graphql.String(login),
+		gqlVarLogin: graphql.String(login),
 	}
 
 	err = client.Query("User", &query, variables)

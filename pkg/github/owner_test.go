@@ -7,6 +7,11 @@ import (
 	"github.com/tasshi-me/gh-iteration/pkg/github"
 )
 
+const (
+	testUserLogin = "tasshi-me"
+	testOrgLogin  = "tasshi-playground"
+)
+
 func TestFetchOwnerIDByLogin(t *testing.T) {
 	t.Parallel()
 
@@ -14,8 +19,8 @@ func TestFetchOwnerIDByLogin(t *testing.T) {
 		login     string
 		ownerType github.OwnerType
 	}{
-		{"tasshi-me", github.OwnerTypeUser},
-		{"tasshi-playground", github.OwnerTypeOrganization},
+		{testUserLogin, github.OwnerTypeUser},
+		{testOrgLogin, github.OwnerTypeOrganization},
 	}
 
 	for _, tt := range tests {
@@ -47,7 +52,7 @@ func TestFetchOwnerIDByLogin(t *testing.T) {
 func TestFetchOrganizationByLogin(t *testing.T) {
 	t.Parallel()
 
-	login := "tasshi-playground"
+	login := testOrgLogin
 	org, err := github.FetchOrganizationByLogin(login)
 	if err != nil {
 		t.Fatal(err)
@@ -66,7 +71,7 @@ func TestFetchOrganizationByLogin(t *testing.T) {
 func TestFetchUserByLogin(t *testing.T) {
 	t.Parallel()
 
-	login := "tasshi-me"
+	login := testUserLogin
 	org, err := github.FetchUserByLogin(login)
 	if err != nil {
 		t.Fatal(err)
@@ -85,7 +90,7 @@ func TestFetchUserByLogin(t *testing.T) {
 func TestFetchUserByViewer(t *testing.T) {
 	t.Parallel()
 
-	login := "tasshi-me"
+	login := testUserLogin
 	if os.Getenv("CI") == "true" {
 		login = "github-actions[bot]"
 	}
@@ -96,7 +101,7 @@ func TestFetchUserByViewer(t *testing.T) {
 	if len(owner.ID) == 0 {
 		t.Errorf("failed to retrieve ID")
 	}
-	if !(os.Getenv("CI") == "true") && len(owner.Name) == 0 {
+	if (os.Getenv("CI") != "true") && len(owner.Name) == 0 {
 		t.Errorf("failed to retrieve Name")
 	}
 	if owner.Login != login {
