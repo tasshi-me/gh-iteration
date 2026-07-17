@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/tasshi-me/gh-iteration/pkg/flags"
@@ -111,9 +112,11 @@ func formatIterationFieldsPlain(fields *[]github.ProjectV2IterationFieldWithoutC
 
 	str := fmt.Sprintf("%-"+strconv.Itoa(maxFieldNameLen)+"s  %-"+strconv.Itoa(maxFieldIDLen)+"s\n", "Name", "ID")
 	format := "%-" + strconv.Itoa(maxFieldNameLen) + "s  %-" + strconv.Itoa(maxFieldIDLen) + "s\n"
+	var strSb114 strings.Builder
 	for _, field := range *fields {
 		iter := fmt.Sprintf(format, field.Name, field.ID)
-		str += iter
+		strSb114.WriteString(iter)
 	}
+	str += strSb114.String()
 	return str
 }

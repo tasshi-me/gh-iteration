@@ -48,8 +48,8 @@ func FetchIterationFieldByName(projectID string, fieldName string) (*ProjectV2It
 		} `graphql:"node(id: $project_id)"`
 	}
 	variables := map[string]interface{}{
-		"project_id": graphql.ID(projectID),
-		"field_name": graphql.String(fieldName),
+		gqlVarProjectID: graphql.ID(projectID),
+		"field_name":    graphql.String(fieldName),
 	}
 
 	err = client.Query("IterationField", &query, variables)
@@ -101,7 +101,7 @@ func FetchIterationFields(projectID string) (*[]ProjectV2IterationFieldWithoutCo
 		} `graphql:"node(id: $project_id)"`
 	}
 	variables := map[string]interface{}{
-		"project_id": graphql.ID(projectID),
+		gqlVarProjectID: graphql.ID(projectID),
 	}
 
 	err = client.Query("IterationFields", &query, variables)
