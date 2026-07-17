@@ -8,6 +8,12 @@ import (
 	"github.com/tasshi-me/gh-iteration/pkg/flags"
 )
 
+const (
+	errMsgFieldRequired   = "when you set [--project-id --project --owner], you must set [--field]"
+	errMsgProjectConflict = "when you set [--project-id], you cannot set [--project --owner]"
+	errMsgFieldIDConflict = "when you set [--field-id], you cannot set [--field --project-id --project --owner]"
+)
+
 type Flags struct {
 	fieldID   bool
 	field     bool
@@ -60,31 +66,31 @@ func TestQuery(t *testing.T) {
 		},
 		{
 			flags:  Flags{fieldID: false, field: false, projectID: false, project: false, owner: true},
-			errMsg: "when you set [--project-id --project --owner], you must set [--field]",
+			errMsg: errMsgFieldRequired,
 		},
 		{
 			flags:  Flags{fieldID: false, field: false, projectID: false, project: true, owner: false},
-			errMsg: "when you set [--project-id --project --owner], you must set [--field]",
+			errMsg: errMsgFieldRequired,
 		},
 		{
 			flags:  Flags{fieldID: false, field: false, projectID: false, project: true, owner: true},
-			errMsg: "when you set [--project-id --project --owner], you must set [--field]",
+			errMsg: errMsgFieldRequired,
 		},
 		{
 			flags:  Flags{fieldID: false, field: false, projectID: true, project: false, owner: false},
-			errMsg: "when you set [--project-id --project --owner], you must set [--field]",
+			errMsg: errMsgFieldRequired,
 		},
 		{
 			flags:  Flags{fieldID: false, field: false, projectID: true, project: false, owner: true},
-			errMsg: "when you set [--project-id --project --owner], you must set [--field]",
+			errMsg: errMsgFieldRequired,
 		},
 		{
 			flags:  Flags{fieldID: false, field: false, projectID: true, project: true, owner: false},
-			errMsg: "when you set [--project-id --project --owner], you must set [--field]",
+			errMsg: errMsgFieldRequired,
 		},
 		{
 			flags:  Flags{fieldID: false, field: false, projectID: true, project: true, owner: true},
-			errMsg: "when you set [--project-id --project --owner], you must set [--field]",
+			errMsg: errMsgFieldRequired,
 		},
 		{
 			flags:  Flags{fieldID: false, field: true, projectID: false, project: false, owner: false},
@@ -108,15 +114,15 @@ func TestQuery(t *testing.T) {
 		},
 		{
 			flags:  Flags{fieldID: false, field: true, projectID: true, project: false, owner: true},
-			errMsg: "when you set [--project-id], you cannot set [--project --owner]",
+			errMsg: errMsgProjectConflict,
 		},
 		{
 			flags:  Flags{fieldID: false, field: true, projectID: true, project: true, owner: false},
-			errMsg: "when you set [--project-id], you cannot set [--project --owner]",
+			errMsg: errMsgProjectConflict,
 		},
 		{
 			flags:  Flags{fieldID: false, field: true, projectID: true, project: true, owner: true},
-			errMsg: "when you set [--project-id], you cannot set [--project --owner]",
+			errMsg: errMsgProjectConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: false, projectID: false, project: false, owner: false},
@@ -124,63 +130,63 @@ func TestQuery(t *testing.T) {
 		},
 		{
 			flags:  Flags{fieldID: true, field: false, projectID: false, project: false, owner: true},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: false, projectID: false, project: true, owner: false},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: false, projectID: false, project: true, owner: true},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: false, projectID: true, project: false, owner: false},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: false, projectID: true, project: false, owner: true},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: false, projectID: true, project: true, owner: false},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: false, projectID: true, project: true, owner: true},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: true, projectID: false, project: false, owner: false},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: true, projectID: false, project: false, owner: true},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: true, projectID: false, project: true, owner: false},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: true, projectID: false, project: true, owner: true},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: true, projectID: true, project: false, owner: false},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: true, projectID: true, project: false, owner: true},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: true, projectID: true, project: true, owner: false},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 		{
 			flags:  Flags{fieldID: true, field: true, projectID: true, project: true, owner: true},
-			errMsg: "when you set [--field-id], you cannot set [--field --project-id --project --owner]",
+			errMsg: errMsgFieldIDConflict,
 		},
 	}
 

@@ -13,7 +13,7 @@ func TestFetchProjectByNumber(t *testing.T) {
 		t.Skip()
 	}
 
-	login := "tasshi-playground"
+	login := testOrgLogin
 	projectNumber := 2
 	owner, err := github.FetchOwnerByLogin(login)
 	if err != nil {
