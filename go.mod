@@ -3,7 +3,7 @@ module github.com/tasshi-me/gh-iteration
 go 1.27.1
 
 require (
-	github.com/cli/go-gh/v2 v2.15.0
+	github.com/cli/go-gh/v2 v2.16.0
 	github.com/cli/shurcooL-graphql v0.0.4
 	github.com/expr-lang/expr v1.17.8
 	github.com/spf13/cobra v1.10.2
