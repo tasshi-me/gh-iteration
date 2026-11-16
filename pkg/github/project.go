@@ -112,7 +112,7 @@ type ProjectItem struct {
 	ID          string             `json:"id"`
 	FieldValues struct {
 		Nodes []FieldValue `json:"nodes"`
-	} `json:"fieldValues" graphql:"fieldValues(first: 100)"`
+	} `graphql:"fieldValues(first: 100)" json:"fieldValues"`
 	IsArchived bool    `json:"isArchived"`
 	Type       string  `json:"type"` // DRAFT_ISSUE, ISSUE, PULL_REQUEST, REDACTED
 	Project    Project `json:"project"`
