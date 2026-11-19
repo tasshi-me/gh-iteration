@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.1](https://github.com/tasshi-me/gh-iteration/compare/v0.2.0...v0.2.1) (2026-11-19)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/cli/go-gh/v2 to v2.16.2 ([#85](https://github.com/tasshi-me/gh-iteration/issues/85)) ([1cd04e0](https://github.com/tasshi-me/gh-iteration/commit/1cd04e070ca4f28835409d6f04da518a35377a1b))
+* **deps:** update module github.com/cli/go-gh/v2 to v2.17.0 ([#86](https://github.com/tasshi-me/gh-iteration/issues/86)) ([bafb9da](https://github.com/tasshi-me/gh-iteration/commit/bafb9daaa386a1dd9715db269a822db6704e5e51))
+* order struct tags for tagalign ([#89](https://github.com/tasshi-me/gh-iteration/issues/89)) ([cbf1bbb](https://github.com/tasshi-me/gh-iteration/commit/cbf1bbb4b58db5877447081eb215edd3607606d2))
+
 ## [0.2.0](https://github.com/tasshi-me/gh-iteration/compare/v0.1.0...v0.2.0) (2024-07-26)
 
 
