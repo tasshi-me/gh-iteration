@@ -5,7 +5,7 @@ go 1.27.4
 require (
 	github.com/cli/go-gh/v2 v2.17.0
 	github.com/cli/shurcooL-graphql v0.0.4
-	github.com/expr-lang/expr v1.17.8
+	github.com/expr-lang/expr v1.18.0
 	github.com/spf13/cobra v1.10.2
 )
 
